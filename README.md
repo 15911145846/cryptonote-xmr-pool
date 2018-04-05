@@ -450,13 +450,13 @@ curl 127.0.0.1:18081/json_rpc -d '{"method":"getblockheaderbyheight","params":{"
 捐献
 ---------
 如果你觉得对你有用你可以赏作者一杯咖啡。
-![](http://octk4wj3v.bkt.clouddn.com/get-money-weixin.jpg =200x)
+![Image text](http://octk4wj3v.bkt.clouddn.com/get-money-weixin.jpg =200x)
 ---
-![](http://octk4wj3v.bkt.clouddn.com/get-money-zhifubao.jpg =200x)
+![Image text](http://octk4wj3v.bkt.clouddn.com/get-money-zhifubao.jpg =200x)
 
 
 ### 如果有什么不明白的可以加QQ群讨论
-![](http://p5kq4rn7t.bkt.clouddn.com/static/image/my-qqgroup.png =200x)
+![Image text](http://p5kq4rn7t.bkt.clouddn.com/static/image/my-qqgroup.png =200x)
 或者加我个人QQ：719591157 微信:cy719591157
 
 
