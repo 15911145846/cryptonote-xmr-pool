@@ -1,121 +1,115 @@
-cryptonote-xmr-pool
+门罗币矿池程序
 ====================
 
-High performance Node.js (with native C addons) mining pool for CryptoNote based coins such as Bytecoin, DuckNote, Monero, QuazarCoin, Boolberry, Dashcoin, etc..
-Comes with lightweight example front-end script which uses the pool's AJAX API.
+高性能 Node.js 挖掘的基于 CryptoNote 的硬币，如Bytecoin, DuckNote, Monero, QuazarCoin, Boolberry, Dashcoin等。
+附带了轻量级的示例前端脚本，该脚本使用了池的AJAX API。
 
-
-
-#### Table of Contents
-* [Features](#features)
-* [Community Support](#community--support)
-* [Pools Using This Software](#pools-using-this-software)
-* [Usage](#usage)
-  * [Requirements](#requirements)
-  * [Downloading & Installing](#1-downloading--installing)
-  * [Configuration](#2-configuration)
-  * [Configure Easyminer](#3-optional-configure-cryptonote-easy-miner-for-your-pool)
-  * [Starting the Pool](#4-start-the-pool)
+#### 目录列表
+* [产品特点](#features)
+* [社区支持](#community--support)
+* [矿池](#pools-using-this-software)
+* [使用](#usage)
+  * [需求](#requirements)
+  * [下载和安装](#1-downloading--installing)
+  * [配置](#2-configuration)
+  * [配置挖矿配置](#3-optional-configure-cryptonote-easy-miner-for-your-pool)
+  * [启动矿池](#4-start-the-pool)
   * [Host the front-end](#5-host-the-front-end)
-  * [Customizing your website](#6-customize-your-website)
-  * [Upgrading](#upgrading)
-* [Setting up Testnet](#setting-up-testnet)
-* [JSON-RPC Commands from CLI](#json-rpc-commands-from-cli)
-* [Monitoring Your Pool](#monitoring-your-pool)
-* [Donations](#donations)
+  * [定制矿池前端](#6-customize-your-website)
+  * [升级](#upgrading)
+* [设置测试网络](#setting-up-testnet)
+* [JSON-RPC 命令行接口](#json-rpc-commands-from-cli)
+* [监控矿池](#monitoring-your-pool)
+* [捐款](#donations)
 * [Credits](#credits)
 * [License](#license)
 
 
-#### Basic features
+#### 基本特点
 
-* TCP (stratum-like) protocol for server-push based jobs
-  * Compared to old HTTP protocol, this has a higher hash rate, lower network/CPU server load, lower orphan
-    block percent, and less error prone
-* IP banning to prevent low-diff share attacks
-* Socket flooding detection
-* Payment processing
-  * Splintered transactions to deal with max transaction size
-  * Minimum payment threshold before balance will be paid out
-  * Minimum denomination for truncating payment amount precision to reduce size/complexity of block transactions
-* Detailed logging
-* Ability to configure multiple ports - each with their own difficulty
-* Variable difficulty / share limiter
-* Share trust algorithm to reduce share validation hashing CPU load
-* Clustering for vertical scaling
-* Modular components for horizontal scaling (pool server, database, stats/API, payment processing, front-end)
-* Live stats API (using AJAX long polling with CORS)
-  * Currency network/block difficulty
-  * Current block height
-  * Network hashrate
-  * Pool hashrate
-  * Each miners' individual stats (hashrate, shares submitted, pending balance, total paid, etc)
-  * Blocks found (pending, confirmed, and orphaned)
-* An easily extendable, responsive, light-weight front-end using API to display data
-* Support for configuration using tls (https) in pool code to allowing the same for web frontend
-* Multiple modules can be started on command line instead of one or none.
-* Onishin's keepalive function https://github.com/perl5577/cpuminer-multi/commit/0c8aedb
-#### Extra features
+* 基于服务器的 TCP (层状) 基本任务
+  * 与旧的HTTP协议相比，这有更高的哈希速率，更低的网络/CPU服务器负载，更低的孤子。块百分比，且容易出错。
 
-* Admin panel
-  * Aggregated pool statistics
-  * Coin daemon & wallet RPC services stability monitoring
-  * Log files data access
-  * Users list with detailed statistics
-* Historic charts of pool's hashrate and miners count, coin difficulty, rates and coin profitability
-* Historic charts of users's hashrate and payments
-* Miner login(wallet address) validation
-* Five configurable CSS themes
-* Universal blocks and transactions explorer based on [chainradar.com](http://chainradar.com)
-* FantomCoin support is not currently working after fixes to get node modules to work after Mar 23, 2016 fork.
-* MonetaVerde support not tested since changes for monero fork
-* Set fixed difficulty on miner client by passing "address" param with ".[difficulty]" postfix
-* Prevent "transaction is too big" error with "payments.maxTransactionAmount" option
+* 绑定 IP 防止很低基本的网络攻击
+* Socket 嗅探
+* 支付处理
+  * 拆分事务处理最大事务大小。
+  * 最低付款门槛
+  * 最小面额的截断付款金额精度，以减少区块交易的规模/复杂性。
+* 详细的日志记录
+* 能够配置多个端口——每个端口都有自己的难度。
+* 可变难度/共享限制。
+* 共享信任算法，减少共享验证哈希CPU负载。
+* 垂直扩展
+* 水平扩展模块组件(池服务器、数据库、统计/API、支付处理、前端)
+* 实时统计API(使用带有CORS的AJAX长轮询)
+  * 货币网络/块 难度
+  * 当前快的高度
+  * 全网算力
+  * 矿池算力
+  * 每个矿工的个人统计数据(hashrate，提交的哈希，未支付余额，总支付等)
+  * 发现的块(等待、确认和无效)
+* 一个易于扩展，响应性，轻量级前端使用API来显示数据。
+* 支持在池代码中使用tls (https)来支持web前端的配置。
+* 可以在命令行上启动多个模块，而不是一个一个的启动。
+* Onishin's keepalive 函数 https://github.com/perl5577/cpuminer-multi/commit/0c8aedb
 
 
-### Community / Support
+
+#### 其他功能
+
+* 管理员页面
+  * 聚合池统计
+  * 守护进程 和 钱包RPC服务的稳定性监控。
+  * 日志文件数据访问
+  * 用户列表中有详细的统计信息。
+* 历史图表的池的哈希率和矿工数，挖矿难度，利率和币的盈利能力。
+* 用户的哈希率和支付的历史图表。
+* 矿机登录(钱包地址)验证。
+* 五个可配置的CSS主题
+* 普通的交易区块数据。[chainradar.com](http://chainradar.com)
+* 在2016年3月23日之后，FantomCoin的支持并没有在修复后得到节点模块的工作。
+* 通过“地址”与“地址”匹配，为矿工客户设置固定难度。(困难)”后缀
+* 防止“交易太大”的错误与“付款”。maxTransactionAmount”选项
+
+
+### 社区/支持
 
 * [CryptoNote Technology](https://cryptonote.org)
 * [CryptoNote Forum](https://forum.cryptonote.org/)
 * [CryptoNote Universal Pool Forum](https://bitcointalk.org/index.php?topic=705509)
 
-#### Pools Using This Software
+====
 
-* http://xmr.poolto.be run by PCFil
-* http://xmr.cncoin.farm run by clintar
-* https://xmr.ayuscrypto.com run by j0hnw0rk3r
 
-Usage
+使用
 ===
 
-#### Requirements
-* Coin daemon(s) (find the coin's repo and build latest version from source)
+#### 需求
+* 官方钱包（守护程序 ）(找到硬币的repo并从源代码构建最新版本。)
 * [Node.js](http://nodejs.org/) v0.10+ ([follow these installation instructions](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager))
-* [Redis](http://redis.io/) key-value store v2.6+ ([follow these instructions](http://redis.io/topics/quickstart))
-* libssl required for the node-multi-hashing module
-  * For Ubuntu: `sudo apt-get install libssl-dev`
+* [Redis](http://redis.io/) 基于内存的Key-value 数据存储 v2.6+ ([follow these instructions](http://redis.io/topics/quickstart))
+* node- multihashing模块需要libssl。
+  * Ubuntu 系统中使用命令: `sudo apt-get install libssl-dev`
 
 
-##### Seriously
-Those are legitimate requirements. If you use old versions of Node.js or Redis that may come with your system package manager then you will have problems. Follow the linked instructions to get the last stable versions.
+##### 注意
+如果使用老版本的 Node.js 或 Redis 可能会遇到一些问题，按照要求获取最新版本就能解决
 
 
-[**Redis security warning**](http://redis.io/topics/security): be sure firewall access to redis - an easy way is to
-include `bind 127.0.0.1` in your `redis.conf` file. Also it's a good idea to learn about and understand software that
-you are using - a good place to start with redis is [data persistence](http://redis.io/topics/persistence).
+[**Redis 安全警告**](http://redis.io/topics/security): 关于 Redis 的一些安全设置，包括 `绑定本机IP 127.0.0.1` 在`redis.conf` 文件上修改。
 
-##### Easy install on Ubuntu 14 LTS
-Installing pool on different Linux distributives is different because it depends on system default components and versions. For now the easiest way to install pool is to use Ubuntu 14 LTS. Thus, all you had to do in order to prepare Ubunty 14 for pool installation is to run:
+##### Ubuntu 14 LTS 上轻松安装
+在不同的Linux发行版上安装池是不同的，因为它依赖于系统默认的组件和版本。目前，安装池的最简单方法是使用Ubuntu 14 LTS。因此，为了准备Ubunty 14进行池安装，您所要做的就是运行:
 
 ```bash
 sudo apt-get install git redis-server libboost1.55-all-dev nodejs-dev nodejs-legacy npm cmake libssl-dev
 ```
 
 
-#### 1) Downloading & Installing
+#### 1) 下载和安装
 
-
-Clone the repository and run `npm update` for all the dependencies to be installed:
+Clone 本项目 并且运行 `npm update` 安装所有依赖库
 
 ```bash
 git clone https://github.com/clintar/cryptonote-xmr-pool.git pool
@@ -123,27 +117,18 @@ cd pool
 npm update
 ```
 
-#### 2) Configuration
+#### 2) 配置
 
 
-Explanation for each field:
+配置项说明:
 ```javascript
-/* Used for storage in redis so multiple coins can share the same redis instance. */
 "coin": "ducknote",
-
-/* Used for front-end display */
 "symbol": "XDN",
-
-/* Minimum units in a single coin, see COIN constant in DAEMON_CODE/src/cryptonote_config.h */
 "coinUnits": 100000000,
-
-/* Coin network time to mine one block, see DIFFICULTY_TARGET constant in DAEMON_CODE/src/cryptonote_config.h */
+/* see DIFFICULTY_TARGET constant in DAEMON_CODE/src/cryptonote_config.h */
 "coinDifficultyTarget": 240,
-
 "logging": {
-
     "files": {
-
         /* Specifies the level of log output verbosity. This level and anything
            more severe will be logged. Options are: info, warn, or error. */
         "level": "info",
@@ -352,55 +337,45 @@ Explanation for each field:
     }
 ```
 
-#### 3) [Optional] Configure cryptonote-easy-miner for your pool
-Your miners that are Windows users can use [cryptonote-easy-miner](https://github.com/zone117x/cryptonote-easy-miner)
-which will automatically generate their wallet address and stratup multiple threads of simpleminer. You can download
-it and edit the `config.ini` file to point to your own pool.
-Inside the `easyminer` folder, edit `config.init` to point to your pool details
+#### 3) 旷工使用该池配置
+旷工可以选择一个挖矿程序，然后配置下矿池的地址，和端口，就可以开始挖矿
 ```ini
 pool_host=example.com
 pool_port=5555
 ```
 
-Rezip and upload to your server or a file host. Then change the `easyminerDownload` link in your `config.json` file to
-point to your zip file.
-
-#### 4) Start the pool
+#### 4) 启动矿池
 
 ```bash
 node init.js
 ```
 
-The file `config.json` is used by default but a file can be specified using the `-config=file` command argument, for example:
+可以使用 `-config=file` 参数来指定配置文件,例如:
 
 ```bash
 node init.js -config=config_backup.json
 ```
 
-This software contains four distinct modules:
-* `pool` - Which opens ports for miners to connect and processes shares
-* `api` - Used by the website to display network, pool and miners' data
-* `unlocker` - Processes block candidates and increases miners' balances when blocks are unlocked
-* `payments` - Sends out payments to miners according to their balances stored in redis
+项目包含4个不同的模块:
+* `pool` - 为矿工开通连接和处理提供的算力端口
+* `api` - 网站api用来显示 旷工，网络的数据
+* `unlocker` - 解决挖矿失败，给旷工增加收入的bug
+* `payments` - 根据储存在redis的余额向矿工发送付款。
 
 
-By default, running the `init.js` script will start up all four modules. You can optionally have the script start
-only start a specific module by using the `-module=name` command argument, for example:
-
+默认情况下，运行 init.js 的脚本将启动所有四个模块。您可以选择启动脚本。
+通过“-module=name” 命令参数来启动一个特定的模块，例如:
 ```bash
 node init.js -module=api
 ```
 
-[Example screenshot](http://i.imgur.com/SEgrI3b.png) of running the pool in single module mode with tmux.
+
+#### 5) 前端网站
+
+搭建一个简单的网站服务代理下 `website_example` 目录下的静态文件
 
 
-#### 5) Host the front-end
-
-Simply host the contents of the `website_example` directory on file server capable of serving simple static files.
-
-
-Edit the variables in the `website_example/config.js` file to use your pool's specific configuration.
-Variable explanations:
+配置下 `website_example/config.js` 配置文件
 
 ```javascript
 
@@ -433,81 +408,62 @@ var themeCss = "themes/default-theme.css";
 
 ```
 
-#### 6) Customize your website
+#### 6) 定制网站
 
-The following files are included so that you can customize your pool website without having to make significant changes
-to `index.html` or other front-end files thus reducing the difficulty of merging updates with your own changes:
-* `custom.css` for creating your own pool style
-* `custom.js` for changing the functionality of your pool website
-
-
-Then simply serve the files via nginx, Apache, Google Drive, or anything that can host static content.
+修改一下这些文件就可以自定义您自己的矿池网站。而不必要大量修改了
+* `index.html`
+* `custom.css`
+* `custom.js`
 
 
-#### Upgrading
-When updating to the latest code its important to not only `git pull` the latest from this repo, but to also update
-the Node.js modules, and any config files that may have been changed.
-* Inside your pool directory (where the init.js script is) do `git pull` to get the latest code.
-* Remove the dependencies by deleting the `node_modules` directory with `rm -r node_modules`.
-* Run `npm update` to force updating/reinstalling of the dependencies.
-* Compare your `config.json` to the latest example ones in this repo or the ones in the setup instructions where each config field is explained. You may need to modify or add any new changes.
-
-### Setting up Testnet
-
-Monero does have a testnet. Call daemon and simplewallet with --tesnet to connect to it.
-Downloading the testnet blockchain may still take a while to start usint testnet, so you can use this excellent 
-tutorial http://moneroexamples.github.io/private-testnet/ to set up a private testnet. Should work with other 
-coins, too, but below are original testnet instructions by server43 for reference, too.
-
-For cryptonote based coins that don't have a testnet mode (yet), you can effectively create a testnet with the following steps:
-
-* Open `/src/p2p/net_node.inl` and remove lines with `ADD_HARDCODED_SEED_NODE` to prevent it from connecting to mainnet (Monero example: http://git.io/0a12_Q)
-* Build the coin from source
-* You now need to run two instance of the daemon and connect them to each other (without a connection to another instance the daemon will not accept RPC requests)
-  * Run first instance with `./coind --p2p-bind-port 28080 --allow-local-ip`
-  * Run second instance with `./coind --p2p-bind-port 5011 --rpc-bind-port 5010 --add-peer 0.0.0.0:28080 --allow-local-ip`
-* You should now have a local testnet setup. The ports can be changes as long as the second instance is pointed to the first instance, obviously
-
-*Credit to surfer43 for these instructions*
+然后只需通过 nginx、Apache、或任何可以代理静态内容的内容来服务软
 
 
-### JSON-RPC Commands from CLI
+#### 更新
+更新只需要只需 `git pull` 拉取最新的代码就行
+* 进入到代码目录执行 `git pull` 拉取最新代码.
+* 删除 node.js 依赖 `node_modules` 目录，使用 `rm -r node_modules` 命令就行。
+* 运行 `npm update` 重新下载依赖。
+* 对比 `config.json` 配置文件，调整参数
 
-Documentation for JSON-RPC commands can be found here:
-* Daemon https://wiki.bytecoin.org/wiki/Daemon_JSON_RPC_API
-* Wallet https://wiki.bytecoin.org/wiki/Wallet_JSON_RPC_API
+
+### JSON-RPC API
+JSON-RPC 命令文档可以从以下地址查询:
+* 守护程序 https://wiki.bytecoin.org/wiki/Daemon_JSON_RPC_API
+* 钱包程序 https://wiki.bytecoin.org/wiki/Wallet_JSON_RPC_API
 
 
-Curl can be used to use the JSON-RPC commands from command-line. Here is an example of calling `getblockheaderbyheight` for block 100:
+使用 Curl 命令查看 `getblockheaderbyheight`:
 
 ```bash
 curl 127.0.0.1:18081/json_rpc -d '{"method":"getblockheaderbyheight","params":{"height":100}}'
 ```
 
 
-### Monitoring Your Pool
+### 矿磁监控
 
-* To inspect and make changes to redis I suggest using [redis-commander](https://github.com/joeferner/redis-commander)
-* To monitor server load for CPU, Network, IO, etc - I suggest using [New Relic](http://newrelic.com/)
-* To keep your pool node script running in background, logging to file, and automatically restarting if it crashes - I suggest using [forever](https://github.com/nodejitsu/forever)
+* redis 建议使用 [redis-commander](https://github.com/joeferner/redis-commander)
+* 为了监视CPU、网络、IO等的服务器负载，我建议使用。 [New Relic](http://newrelic.com/)
+* 保持你的池节点脚本在后台运行，记录到文件，如果它崩溃就自动重新启动-我建议使用。 [forever](https://github.com/nodejitsu/forever)
 
 
-Donations
+捐献
 ---------
-* BTC: `16gHU8K5h3djmwAb6xUCaGsLe2z21L19Y6`
-* MRO: `4AabFTaEt6KG18tux7yqS8Fv63JoyXsitjGSksrXCqZwBeJKKnphSx4KNsocn5kqWg6cMjeuNzssTHeefHvN8m1V6QqseCH`
-Credits
-===
+如果你觉得对你有用你可以赏作者一杯咖啡。
+![](http://octk4wj3v.bkt.clouddn.com/get-money-weixin.jpg =200x)
+---
+![](http://octk4wj3v.bkt.clouddn.com/get-money-zhifubao.jpg =200x)
 
-* [LucasJones](//github.com/LucasJones) - Co-dev on this project; did tons of debugging for binary structures and fixing them. Pool couldn't have been made without him.
-* [surfer43](//github.com/iamasupernova) - Did lots of testing during development to help figure out bugs and get them fixed
-* [wallet42](http://moneropool.com) - Funded development of payment denominating and min threshold feature
-* [Wolf0](https://bitcointalk.org/index.php?action=profile;u=80740) - Helped try to deobfuscate some of the daemon code for getting a bug fixed
-* [Tacotime](https://bitcointalk.org/index.php?action=profile;u=19270) - helping with figuring out certain problems and lead the bounty for this project's creation
-* [fancoder] (https://github.com/fancoder) Initial cryptonote-universal-pool creator 
- * BTC: `1667jMt7NTZDaC8WXAxtMYBR8DPWCVoU4d`- 
- * MRO: `48Y4SoUJM5L3YXBEfNQ8bFNsvTNsqcH5Rgq8RF7BwpgvTBj2xr7CmWVanaw7L4U9MnZ4AG7U6Pn1pBhfQhFyFZ1rL1efL8z`
-* [clintar] (https://github.com/clintar) Updates to support nodejs >0.10 and continuing updates
+
+### 如果有什么不明白的可以加QQ群讨论
+![](http://p5kq4rn7t.bkt.clouddn.com/static/image/my-qqgroup.png =200x)
+或者加我个人QQ：719591157 微信:cy719591157
+
+
+
+
+
+
 License
 -------
 Released under the GNU General Public License v2
