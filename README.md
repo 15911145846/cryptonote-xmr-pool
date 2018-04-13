@@ -427,17 +427,11 @@ var themeCss = "themes/default-theme.css";
 * 对比 `config.json` 配置文件，调整参数
 
 
-### JSON-RPC API
-JSON-RPC 命令文档可以从以下地址查询:
-* 守护程序 https://wiki.bytecoin.org/wiki/Daemon_JSON_RPC_API
-* 钱包程序 https://wiki.bytecoin.org/wiki/Wallet_JSON_RPC_API
+### 用户指南
+http://www.xmr-zh.com/user-guides.html
 
-
-使用 Curl 命令查看 `getblockheaderbyheight`:
-
-```bash
-curl 127.0.0.1:18081/json_rpc -d '{"method":"getblockheaderbyheight","params":{"height":100}}'
-```
+#### 门罗币中文网
+http://www.xmr-zh.com/
 
 
 ### 矿磁监控
