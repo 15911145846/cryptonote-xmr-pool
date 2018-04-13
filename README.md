@@ -4,6 +4,10 @@
 高性能 Node.js 挖掘的基于 CryptoNote 的硬币，如Bytecoin, DuckNote, Monero, QuazarCoin, Boolberry, Dashcoin等。
 附带了轻量级的示例前端脚本，该脚本使用了池的AJAX API。
 
+加入我的星球，提供全方位的技术指导，与服务。少走弯路，直达终点。
+<img width="200" src="http://octk4wj3v.bkt.clouddn.com/get-money-xingqiu.jpg">
+
+
 #### 目录列表
 * [产品特点](#features)
 * [社区支持](#community--support)
@@ -448,8 +452,6 @@ http://www.xmr-zh.com/
 <img width="200" src="http://octk4wj3v.bkt.clouddn.com/get-money-weixin.jpg"/>
 ---
 <img width="200" src="http://octk4wj3v.bkt.clouddn.com/get-money-zhifubao.jpg"/>
---
-<img width="200" src="http://octk4wj3v.bkt.clouddn.com/get-money-xingqiu.jpg">
 
 
 ### 如果有什么不明白的可以加QQ群讨论
