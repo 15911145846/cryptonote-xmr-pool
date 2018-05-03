@@ -2,3 +2,5 @@ node_modules/
 .idea/
 logs/
 /nbproject/private/
+/multi-hashing/build/
+/cryptonote-util/build/
