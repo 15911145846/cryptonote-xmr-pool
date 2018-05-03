@@ -9,6 +9,9 @@
 <img width="400" src="http://octk4wj3v.bkt.clouddn.com/get-money-xingqiu.jpg">
 
 
+##门罗老算法山寨币矿池请使用
+https://github.com/cyyinfo/old-xmr-pool
+
 #### 目录列表
 * [产品特点](#features)
 * [社区支持](#community--support)
