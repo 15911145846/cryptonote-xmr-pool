@@ -449,20 +449,9 @@ http://www.xmr-zh.com/
 * 保持你的池节点脚本在后台运行，记录到文件，如果它崩溃就自动重新启动-我建议使用。 [forever](https://github.com/nodejitsu/forever)
 
 
-捐献
----------
-如果你觉得对你有用你可以赏作者一杯咖啡。
----
-<img width="200" src="http://octk4wj3v.bkt.clouddn.com/get-money-weixin.jpg"/>
----
-<img width="200" src="http://octk4wj3v.bkt.clouddn.com/get-money-zhifubao.jpg"/>
-
-
 ### 如果有什么不明白的可以加QQ群讨论
 <img width="200" src="http://p5kq4rn7t.bkt.clouddn.com/static/image/my-qqgroup.png"/>
 或者加我个人QQ：719591157 微信:cy719591157
-
-
 
 
 
